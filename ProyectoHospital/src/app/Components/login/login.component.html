@@ -1,0 +1,42 @@
+<div  style="
+width: 100%; 
+height: 100%; 
+position: fixed; 
+left: 0px; 
+top: 0px; 
+z-index: -1;">
+<img src="https://www.123freevectors.com/wp-content/original/108131-light-blue-wave.jpg" alt="" style="max-width: 100%;">
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Iniciar sesión</h5>
+            <form [formGroup]="myForm" (ngSubmit)="onLogin(myForm.value)" class="form-signin">
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="Email" formControlName="email"
+                       [errorStateMatcher]="matcher">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+  
+              <mat-form-field class="example-full-width">
+                <input type="password" matInput placeholder="Password" formControlName="password"
+                       [errorStateMatcher]="matcher">
+              
+              </mat-form-field>
+  
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+              <hr class="my-4">
+              <a [routerLink]="['/registro']" >¿No tienes una cuenta?</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

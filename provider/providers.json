@@ -1,0 +1,27 @@
+{
+"google-link": {
+  "provider": "google",
+  "module": "passport-google-oauth",
+  "strategy": "OAuth2Strategy",
+  "clientID": "586761051686-tr2lit5b72bqhh8bh69lsi6f72v26tjf.apps.googleusercontent.com",
+  "clientSecret": "4Rsil9OZO7cZ1IyVXwGGZ66x",
+  "callbackURL": "http://localhost:3000/link/google/callback",
+  "authPath": "/link/google",
+  "callbackPath": "/link/google/callback",
+  "successRedirect": "/link/account",
+  "scope": ["email", "profile"],
+  "link": true
+},
+"google-login": {
+    "provider": "google",
+    "module": "passport-google-oauth",
+    "strategy": "OAuth2Strategy",
+    "clientID": "586761051686-tr2lit5b72bqhh8bh69lsi6f72v26tjf.apps.googleusercontent.com",
+    "clientSecret": "4Rsil9OZO7cZ1IyVXwGGZ66x",
+    "callbackURL": "http://localhost:3000/auth/google/callback",
+    "authPath": "/auth/google",
+    "callbackPath": "/auth/google/callback",
+    "successRedirect": "/auth/account",
+    "scope": ["email", "profile"]
+  }
+}

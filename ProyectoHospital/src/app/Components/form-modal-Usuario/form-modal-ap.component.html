@@ -1,0 +1,43 @@
+<div class="modal-header" #child1>
+        <h4 class="modal-title">Formulario Usuario</h4>
+        <button type="button" class="close" aria-label="Close"
+         (click)="activeModal.dismiss('Cross click')">X
+        </button>
+      </div>
+      <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
+        <div class="modal-boy">
+          <div class="container">
+              <img [src]="Imgsrc" style="max-width: 260px; margin-left: 25%;" (click)="file.click()"/>
+                <div class="form-group">
+                        <label for="titulo">Foto</label>
+                        <input type="file" 
+                          class="form-control"
+                            (change)="cambiaPreview($event);handleFileSelect($event)" #file accept="image/*"/>
+                      </div>
+            <div class="form-group">
+              <label for="Nombre">Nombre</label>
+              <input type="text" 
+                class="form-control"
+                formControlName="Nombre" />
+            </div>
+            <div class="form-group">
+              <label for="m">Email</label>
+              <input type="text" 
+                class="form-control"
+                formControlName="email"  />
+            </div>
+            <div class="form-group">
+              <label for="m">Contraseña</label>
+              <input type="text" 
+                class="form-control"
+                formControlName="password"  />
+            </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success"
+            >
+            Añadir
+          </button>
+        </div>
+      </form>

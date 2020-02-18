@@ -1,0 +1,23 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "ComposeMongo": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "ProyectoHospitalPW",
+    "password": "",
+    "name": "ComposeMongo",
+    "user": "",
+    "useNewUrlParser": true,
+    "connector": "mongodb"
+  },
+  "files-local": {
+    "name": "files-local",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "./server"
+  }
+}

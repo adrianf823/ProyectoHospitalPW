@@ -1,0 +1,48 @@
+<div class="modal-header" #child1>
+        <h4 class="modal-title">Formulario Médicos</h4>
+        <button type="button" class="close" aria-label="Close"
+         (click)="activeModal.dismiss('Cross click')">X
+        </button>
+      </div>
+      <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
+        <div class="modal-boy">
+          <div class="container">
+              <img [src]="Imgsrc" style="max-width: 260px; margin-left: 25%;" (click)="file.click()"/>
+                <div class="form-group">
+                        <label for="titulo">Foto</label>
+                        <input type="file" 
+                          class="form-control"
+                            (change)="cambiaPreview($event);handleFileSelect($event)" #file accept="image/*"/>
+                      </div>
+            <div class="form-group">
+              <label for="name">Nombre</label>
+              <input type="text" 
+                class="form-control"
+                formControlName="Nombre" />
+                <div class="text-danger" *ngIf="isSubmitted && formControls.Nombre.errors?.required">Este campo es necesario</div>
+            </div>
+            <div class="form-group">
+              <label for="descripcion">Hospital</label>
+              <br>
+              <label *ngIf="modif">----------Anteriormente: {{medicom.Hospital}}------------</label>
+              <select type="text" class="form-control" formControlName="Hospital" (change)="cambiarHospital($event)">
+                <option>Elije un hospital</option>
+                <option  *ngFor="let item of hospitalesArray">{{item.Nombre}}</option>
+              </select>
+              <div class="text-danger" *ngIf="isSubmitted && !HospValid">Este campo es necesario</div>
+            </div>
+            <div class="form-group">
+              <label for="m">Usuario</label>
+              <input type="text" 
+                class="form-control"
+                formControlName="Usuario" disabled />
+            </div>
+          </div>
+          </div>
+        <div class="modal-footer">
+          <button class="btn btn-success"
+            >
+            Añadir
+          </button>
+        </div>
+      </form>

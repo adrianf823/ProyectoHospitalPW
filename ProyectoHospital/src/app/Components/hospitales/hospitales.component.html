@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <img src="../../../assets/logo-junta-andalucia-blanco.png" alt="" style="max-width: 50px;">
+    <a class="navbar-brand" href="#" > &nbsp;&nbsp;ClickSalud</a>
+  
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/medicos']" routerLinkActive="router-link-active" >Medicos</a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/hospitales']" routerLinkActive="router-link-active" >Hospitales <span class="sr-only">(current)</span></a>
+          </li>
+      </ul>
+
+      <form class="form-inline my-2 my-lg-0">
+          <h6 style="color: white; margin-top: 5px;">{{Usuario.email}}</h6>&nbsp;&nbsp;
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="myInput" (keyup)="buscarHospital()">
+        <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+      </form>
+      <ul class="navbar-nav">
+    <li class="nav-item active">
+        <a class="nav-link" (click)="logOut()" href="">Log Out <span class="sr-only">(current)</span></a>
+    </li>
+</ul>
+      <div (click)="formUsuario()">
+  <img alt="profile" [src]="Usuario.Foto" style="max-width: 80px;">
+      <img src="/assets/flecha.png" style="max-width: 24px;" />
+    </div>
+    </div>
+  </nav>
+<br>
+<h1 style="text-align: center;">Hospitales</h1>
+<button (click)="CrearHospital()" style="margin-left: 80%;" *ngIf="Usuario.rol=='admin'">Crear Hospital</button>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+        <br>
+        <div class="row">
+            <table class="table" id="myTable">
+                <thead class="thead-dark">
+        <th>Foto</th>
+        <th>Nombre</th>
+        <th>Usuario</th>
+        <th *ngIf="Usuario.rol=='admin'">Operaciones</th>
+                </thead>
+        <tr *ngFor="let m of hospitalesArray">
+    <td><img [src]="m.Foto" alt="" style="max-width: 60px;"></td>
+    <td>{{m.Nombre}}</td>
+    <td>{{m.Usuario}}({{m.email}})</td>
+    <td  *ngIf="Usuario.rol=='admin'"><button (click)="EliminarHospital(m.id)" *ngIf="m.userId==Usuario.id">Eliminar</button>
+    <button (click)="EditarHospital(m,m.id)" *ngIf="m.userId==Usuario.id">Modificar</button></td>
+        </tr>
+        
+        </table>
+            
+    </div>
+    
+    </div>
+    <div class="col-1"></div>
+    </div>
