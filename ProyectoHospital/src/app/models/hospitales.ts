@@ -6,3 +6,6 @@ export class HospitalesModel {
     email: string;
     userId:string;
 }
+
+
+

@@ -48,8 +48,17 @@
     "dataSource": "ComposeMongo",
     "public": true
   },
+  "userCredential": {
+    "dataSource": "ComposeMongo",
+    "public": false
+  },
+  "userIdentity": {
+    "dataSource": "ComposeMongo",
+    "public": false
+  },
   "container": {
     "dataSource": "files-local",
     "public": true
   }
+
 }

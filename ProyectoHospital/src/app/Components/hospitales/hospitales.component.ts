@@ -7,13 +7,13 @@ import { FormModalAPComponentUser } from 'src/app/Components/form-modal-Usuario/
 import {AuthService} from '../../services/auth.service'
 import { Router } from '@angular/router';
 import { UsuarioModel } from 'src/app/models/usuario';
+import { ViewChild,ElementRef } from '@angular/core'
 @Component({
   selector: 'app-hospitales',
   templateUrl: './hospitales.component.html',
   styleUrls: ['./hospitales.component.scss']
 })
 export class HospitalesComponent implements OnInit {
-
  Usuario:UsuarioModel=JSON.parse(localStorage.getItem("currentUser"));
 hospitalesArray: HospitalesModel[]=[]
 hospital:HospitalesModel;
@@ -23,9 +23,37 @@ hospital:HospitalesModel;
     console.log(this.Usuario.email)
       this.hospitalesServ.getHospitalees().subscribe(resp => {
         this.hospitalesArray=resp;
+        if(localStorage.getItem("updateusertabla")=="1"){
+        if(localStorage.getItem("reload")=="0"){
+          localStorage.setItem("reload","1");
+         location.reload()
+        }
+        
+          this.hospitalesArray.forEach(element => {
+            console.log(this.hospitalesArray)
+            console.log(element)
+            if(localStorage.getItem("auxUserN")==element.Usuario || localStorage.getItem("auxUserEm")==element.email){
+              console.log(element)
+              this.hospital={
+                Foto:element.Foto,
+                Nombre:element.Nombre,
+                  Usuario:this.Usuario.Nombre,
+                  email:this.Usuario.email,
+                  userId:this.Usuario.id
+                
+              }
+              console.log(this.hospital)
+              this.hospitalesServ.putHospitalees(element.id,this.hospital).subscribe(resp=>{
+                localStorage.setItem("updateusertabla","0");
+              })
+            }
+          });
+          
+        }
       })
+      
+      
 
-    
   }
   logOut(){
     this.authservice.logoutUser();
@@ -81,4 +109,21 @@ hospital:HospitalesModel;
     const modalRef = this.modalService.open(FormModalAPComponentUser);
   }
 
+UpdateUsuarioTabla(hosp:HospitalesModel){
+if(hosp.userId==this.Usuario.id){
+if(hosp.Usuario!=this.Usuario.Nombre || hosp.email!=this.Usuario.email)
+hosp.Usuario=this.Usuario.Nombre
+hosp.email=this.Usuario.email
+this.hospital={
+  Foto:hosp.Foto,
+  Nombre:hosp.Nombre,
+  Usuario:this.Usuario.Nombre,
+  email:this.Usuario.email,
+  userId:this.Usuario.id
 }
+this.hospitalesServ.putHospitalees(hosp.id,this.hospital).subscribe();
+}
+}
+
+}
+

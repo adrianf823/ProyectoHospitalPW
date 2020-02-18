@@ -269,10 +269,14 @@ if(this.cambio){
   });
 }
 console.log(this.user)
+localStorage.setItem("auxUserN",this.Usuario.Nombre)
+localStorage.setItem("auxUserEm",this.Usuario.email)
   this.putUsuarios(this.Usuario.id,this.user).subscribe(resp=>{
     Swal.close()
     this.authService.setUser(this.user)
     this.activeModal.close(this.myForm.value);
+    localStorage.setItem("reload","0");
+    localStorage.setItem("updateusertabla","1");
     location.reload()
   })
     

@@ -26,7 +26,7 @@
     </li>
 </ul>
       <div (click)="formUsuario()">
-  <img alt="profile" [src]="Usuario.Foto" style="max-width: 80px;">
+  <img alt="profile" [src]="Usuario.Foto" style="max-width: 55px;" class="rounded-circle z-depth-0">
       <img src="/assets/flecha.png" style="max-width: 24px;" />
     </div>
     </div>
@@ -51,7 +51,8 @@
     <td>{{m.Nombre}}</td>
     <td>{{m.Usuario}}({{m.email}})</td>
     <td  *ngIf="Usuario.rol=='admin'"><button (click)="EliminarHospital(m.id)" *ngIf="m.userId==Usuario.id">Eliminar</button>
-    <button (click)="EditarHospital(m,m.id)" *ngIf="m.userId==Usuario.id">Modificar</button></td>
+    <button (click)="EditarHospital(m,m.id)" *ngIf="m.userId==Usuario.id">Modificar</button>
+    <button (click)="UpdateUsuarioTabla(m)" *ngIf="m.userId==Usuario.id"  #myDiv style="display: none;">Actualizar</button></td>
         </tr>
         
         </table>

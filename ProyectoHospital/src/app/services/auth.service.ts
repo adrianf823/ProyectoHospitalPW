@@ -66,7 +66,7 @@ export class AuthService {
 
   logoutUser() {
     let accessToken = localStorage.getItem("accessToken");
-    const url_api = `http://localhost:3000/api/Users/logout?access_token=${accessToken}`;
+    const url_api = `http://localhost:3000/api/Usuarios/logout?access_token=${accessToken}`;
     localStorage.removeItem("accessToken");
     console.log("jsndsj")
     localStorage.removeItem("currentUser");

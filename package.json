@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "compression": "^1.0.3",
+    "connect-ensure-login": "^0.1.1",
     "cookie-parser": "^1.4.4",
     "cors": "^2.5.2",
     "express-flash": "0.0.2",
@@ -25,6 +26,7 @@
     "loopback-component-storage-mongo": "^1.5.1",
     "loopback-connector-mongodb": "^4.2.0",
     "loopback-passport": "^1.0.2",
+    "passport-google-oauth": "^2.0.0",
     "serve-favicon": "^2.0.1",
     "strong-error-handler": "^3.0.0"
   },
