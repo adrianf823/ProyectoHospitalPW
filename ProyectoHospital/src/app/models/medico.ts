@@ -5,4 +5,5 @@ export class MedicosModel {
     Foto: string;
     Usuario: string;
     email: string;
+    userId:string;
 }

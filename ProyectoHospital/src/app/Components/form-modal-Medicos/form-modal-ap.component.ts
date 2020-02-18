@@ -280,7 +280,8 @@ if(!this.modif && this.HospValid){
     Foto:this.imagename,
     Hospital:formValue.Hospital,
     Usuario:this.Usuario.Nombre,
-    email:this.Usuario.email
+    email:this.Usuario.email,
+    userId:this.Usuario.id
   }
 this.serviceMed.postMedicoos(this.medicos).subscribe(resp =>{
   this.isSubmitted=false
@@ -298,7 +299,8 @@ this.serviceMed.postMedicoos(this.medicos).subscribe(resp =>{
     Foto:this.imagename,
     Hospital:formValue.Hospital,
     Usuario:this.Usuario.Nombre,
-    email:this.Usuario.email
+    email:this.Usuario.email,
+    userId:this.Usuario.id
   }
   this.serviceMed.putMedicoos(formValue.id,this.medicos).subscribe(resp =>{
     this.modif=false;

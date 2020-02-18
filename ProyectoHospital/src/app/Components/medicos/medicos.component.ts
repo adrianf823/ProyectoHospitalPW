@@ -3,6 +3,7 @@ import { MedicosService } from '../../services/medicos.service';
 import { MedicosModel } from '../../models/medico';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormModalAPComponentMed } from 'src/app/Components/form-modal-medicos/form-modal-ap.component';
+import { FormModalAPComponentUser } from 'src/app/Components/form-modal-Usuario/form-modal-ap.component';
 import {AuthService} from '../../services/auth.service'
 import { Router } from '@angular/router';
 import { UsuarioModel } from 'src/app/models/usuario';
@@ -21,6 +22,34 @@ medico:MedicosModel;
   ngOnInit() {
       this.medicoserv.getMedicoos().subscribe(resp => {
         this.medicosArray=resp;
+        if(localStorage.getItem("updateusertabla")=="1"){
+        if(localStorage.getItem("reload")=="0"){
+          localStorage.setItem("reload","1");
+         location.reload()
+        }
+        
+          this.medicosArray.forEach(element => {
+            console.log(this.medicosArray)
+            console.log(element)
+            if(localStorage.getItem("auxUserN")==element.Usuario || localStorage.getItem("auxUserEm")==element.email){
+              console.log(element)
+              this.medico={
+                Foto:element.Foto,
+                Nombre:element.Nombre,
+                Hospital:element.Hospital,
+                  Usuario:this.Usuario.Nombre,
+                  email:this.Usuario.email,
+                  userId:this.Usuario.id
+                
+              }
+              console.log(this.medico)
+              this.medicoserv.putMedicoos(element.id,this.medico).subscribe(resp=>{
+                localStorage.setItem("updateusertabla","0");
+              })
+            }
+          });
+          
+        }
       })
 
     
@@ -79,5 +108,14 @@ medico:MedicosModel;
         }
       }       
     }
+  }
+  formUsuario(){
+    const modalRef = this.modalService.open(FormModalAPComponentUser);
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    localStorage.setItem("updateusertabla","1")
+    localStorage.setItem("reload","0")
   }
 }

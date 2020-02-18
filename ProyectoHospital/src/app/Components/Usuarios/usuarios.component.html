@@ -10,10 +10,10 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['/medicos']" routerLinkActive="router-link-active" >Medicos</a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
             <a class="nav-link" [routerLink]="['/hospitales']" routerLinkActive="router-link-active" >Hospitales <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item active">
             <a class="nav-link" [routerLink]="['/usuarios']" routerLinkActive="router-link-active" >Usuarios <span class="sr-only">(current)</span></a>
           </li>
       </ul>
@@ -35,8 +35,7 @@
     </div>
   </nav>
 <br>
-<h1 style="text-align: center;">Hospitales</h1>
-<button (click)="CrearHospital()" style="margin-left: 80%;" *ngIf="Usuario.rol=='admin'">Crear Hospital</button>
+<h1 style="text-align: center;">Usuarios</h1>
 <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
@@ -46,16 +45,14 @@
                 <thead class="thead-dark">
         <th>Foto</th>
         <th>Nombre</th>
-        <th>Usuario</th>
+        <th>email</th>
         <th *ngIf="Usuario.rol=='admin'">Operaciones</th>
                 </thead>
-        <tr *ngFor="let m of hospitalesArray">
+        <tr *ngFor="let m of usuariosArray">
     <td><img [src]="m.Foto" alt="" style="max-width: 60px;"></td>
     <td>{{m.Nombre}}</td>
-    <td>{{m.Usuario}}({{m.email}})</td>
-    <td  *ngIf="Usuario.rol=='admin'"><button (click)="EliminarHospital(m.id)" *ngIf="m.userId==Usuario.id">Eliminar</button>
-    <button (click)="EditarHospital(m,m.id)" *ngIf="m.userId==Usuario.id">Modificar</button>
-    <button (click)="UpdateUsuarioTabla(m)" *ngIf="m.userId==Usuario.id"  #myDiv style="display: none;">Actualizar</button></td>
+    <td>{{m.email}}</td>
+    <td  *ngIf="Usuario.rol=='admin'"><button (click)="EliminarUsuario(m.id)">Eliminar</button></td>
         </tr>
         
         </table>

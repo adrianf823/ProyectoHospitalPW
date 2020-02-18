@@ -20,6 +20,7 @@ hospital:HospitalesModel;
   constructor(public hospitalesServ:HospitalesService, public modalService:NgbModal, public authservice: AuthService,public router:Router) { }
 
   ngOnInit() {
+    
     console.log(this.Usuario.email)
       this.hospitalesServ.getHospitalees().subscribe(resp => {
         this.hospitalesArray=resp;
@@ -28,6 +29,7 @@ hospital:HospitalesModel;
           localStorage.setItem("reload","1");
          location.reload()
         }
+      }
         
           this.hospitalesArray.forEach(element => {
             console.log(this.hospitalesArray)
@@ -49,7 +51,7 @@ hospital:HospitalesModel;
             }
           });
           
-        }
+        
       })
       
       
@@ -108,22 +110,12 @@ hospital:HospitalesModel;
   formUsuario(){
     const modalRef = this.modalService.open(FormModalAPComponentUser);
   }
-
-UpdateUsuarioTabla(hosp:HospitalesModel){
-if(hosp.userId==this.Usuario.id){
-if(hosp.Usuario!=this.Usuario.Nombre || hosp.email!=this.Usuario.email)
-hosp.Usuario=this.Usuario.Nombre
-hosp.email=this.Usuario.email
-this.hospital={
-  Foto:hosp.Foto,
-  Nombre:hosp.Nombre,
-  Usuario:this.Usuario.Nombre,
-  email:this.Usuario.email,
-  userId:this.Usuario.id
-}
-this.hospitalesServ.putHospitalees(hosp.id,this.hospital).subscribe();
-}
-}
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    localStorage.setItem("updateusertabla","1")
+    localStorage.setItem("reload","0")
+  }
 
 }
 

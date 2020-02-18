@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegistroComponent } from './Components/registro/registro.component';
 import { HospitalesComponent } from './Components/hospitales/hospitales.component';
+import { UsuariosComponent } from './Components/usuarios/usuarios.component';
 import { MedicosComponent } from './Components/medicos/medicos.component';
 import { FormModalAPComponent } from 'src/app/Components/form-modal-Hospitales/form-modal-ap.component';
 import { FormModalAPComponentMed } from 'src/app/Components/form-modal-medicos/form-modal-ap.component';
@@ -27,7 +28,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MedicosComponent,
     FormModalAPComponent,
     FormModalAPComponentMed,
-    FormModalAPComponentUser
+    FormModalAPComponentUser,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
