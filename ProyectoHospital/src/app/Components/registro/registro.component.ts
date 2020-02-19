@@ -20,8 +20,6 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class RegistroComponent implements OnInit {
 
   usuario: UsuarioModel;
-  rol=false;
-  TipoRol;
   myForm: FormGroup;
 
   constructor(public authService:AuthService, public router:Router, public formBuilder: FormBuilder) { 
@@ -36,23 +34,22 @@ export class RegistroComponent implements OnInit {
   ]);
   private createForm() {
     this.myForm = this.formBuilder.group({
-      Foto:'s',
+      Foto:'https://img.icons8.com/cotton/50/000000/name--v2.png',
       Nombre: ['', [Validators.required]],
       email: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      rol:this.TipoRol
+      rol:''
     });
   }
   onRegister(form): void {
     this.usuario={
       id:form.id,
-      Foto:'s',
+      Foto:'https://img.icons8.com/cotton/50/000000/name--v2.png',
       Nombre:form.Nombre ,
       email: form.email,
       password: form.password,
-      rol:this.TipoRol
+      rol:"admin"
     }
-      console.log(this.rol)
       this.authService
         .registerUser(this.usuario)
         .subscribe(user => {
@@ -65,15 +62,5 @@ export class RegistroComponent implements OnInit {
       
 
   }
-tiporol(){
-
-  if(this.rol){
-    this.TipoRol="admin"
-  }else{
-    this.TipoRol="normal"
-  }
-  console.log(this.TipoRol)
-  console.log(this.myForm.value)
-}
   matcher = new MyErrorStateMatcher();
 }

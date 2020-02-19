@@ -46,12 +46,14 @@
         <th>Foto</th>
         <th>Nombre</th>
         <th>email</th>
+        <th>Admin</th>
         <th *ngIf="Usuario.rol=='admin'">Operaciones</th>
                 </thead>
         <tr *ngFor="let m of usuariosArray">
     <td><img [src]="m.Foto" alt="" style="max-width: 60px;"></td>
     <td>{{m.Nombre}}</td>
     <td>{{m.email}}</td>
+    <td>{{m.rol}}<button *ngIf="m.rol=='admin' && Usuario.rol=='admin'" (click)="rolUpdate(m)">Quitar admin</button><button *ngIf="m.rol=='' && Usuario.rol=='admin'" (click)="rolUpdate(m)">Hacer admin</button></td>
     <td  *ngIf="Usuario.rol=='admin'"><button (click)="EliminarUsuario(m.id)">Eliminar</button></td>
         </tr>
         

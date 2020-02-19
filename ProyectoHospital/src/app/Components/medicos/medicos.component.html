@@ -52,7 +52,7 @@
         <th *ngIf="Usuario.rol=='admin'">Operaciones</th>
                 </thead>
         <tr *ngFor="let m of medicosArray">
-    <td><img [src]="m.Foto" alt="" style="max-width: 60px;"></td>
+    <td><img [src]="m.Foto" alt="" style="max-width: 60px;" class="zoomIt"></td>
     <td>{{m.Nombre}}</td>
     <td>{{m.Hospital}}</td>
     <td>{{m.Usuario}}({{m.email}})</td>

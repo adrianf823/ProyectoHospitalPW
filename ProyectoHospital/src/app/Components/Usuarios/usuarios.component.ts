@@ -58,7 +58,37 @@ usuario:HospitalesModel;
 
   formUsuario(){
     const modalRef = this.modalService.open(FormModalAPComponentUser);
+    modalRef.result.then((result) => {
+      this.usuariosServ.getUsuarios().subscribe(resp => {
+        this.usuariosArray=resp;
+      })
+  })
+
   }
 
+  rolUpdate(user:UsuarioModel){
+if(user.rol=="admin"){
+user.rol="";
+this.usuariosServ.patchUsuarios(user.id,user).subscribe(resp=>{
+  this.usuariosServ.getUsuarios().subscribe();
+  console.log(user)
+  if(user.email==this.Usuario.email){
+    this.authservice.setUser(user);
+    location.reload()
+    }
+})
+}else{
+user.rol="admin";
+this.usuariosServ.patchUsuarios(user.id,user).subscribe(resp=>{
+  this.usuariosServ.getUsuarios().subscribe();
+  console.log(user)
+  if(user.email==this.Usuario.email){
+  this.authservice.setUser(user);
+  location.reload()
+  }
+})
+}
+
+  }
 }
 

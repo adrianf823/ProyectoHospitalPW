@@ -185,16 +185,17 @@ if(this.myForm.valid){
  handleFileSelect(evt){
   var files = evt.target.files;
   this.file = files[0];
-  this.ext=this.file.name;
-  this.ext = this.ext.slice((this.ext.lastIndexOf(".") - 1 >>> 0) + 2);
-  console.log(this.ext)
-if (files && this.file) {
-    var reader = new FileReader();
-
-    reader.onload =this._handleReaderLoaded.bind(this);
-
-    reader.readAsBinaryString(this.file);
-}
+  if(this.file!=null){
+    this.ext=this.file.name;
+    this.ext = this.ext.slice((this.ext.lastIndexOf(".") - 1 >>> 0) + 2);
+  if (files && this.file) {
+      var reader = new FileReader();
+  
+      reader.onload =this._handleReaderLoaded.bind(this);
+  
+      reader.readAsBinaryString(this.file);
+  }
+    }
 }
 _handleReaderLoaded(readerEvt) {
   this.cambio=true;
@@ -245,7 +246,11 @@ get Nombrem() {
   console.log(formValue.Nombre);
   if(!this.modif){
     this.nombreIcono = `${formValue.Nombre.trim()}Img`+'.'+this.ext;
-    this.imagename =`http://localhost:3000/api/Containers/local-storage/download/${this.nombreIcono}`;
+    if(this.file!=null){
+      this.imagename =`http://localhost:3000/api/Containers/local-storage/download/${this.nombreIcono}`;
+      }else{
+        this.imagename='/assets/image-placeholder.jpg';
+      }
     
   this.hospitales={
     Foto:this.imagename,
@@ -265,7 +270,11 @@ this.service.postHospitalees(this.hospitales).subscribe(resp =>{
   }else{
     console.log(this.hospitalm)
     this.nombreIcono = `${formValue.Nombre.trim()}Img`+'.'+this.ext;
-    this.imagename =`http://localhost:3000/api/Containers/local-storage/download/${this.nombreIcono}`;
+    if(this.file!=null){
+      this.imagename =`http://localhost:3000/api/Containers/local-storage/download/${this.nombreIcono}`;
+      }else{
+        this.imagename='/assets/image-placeholder.jpg';
+      }
     if(this.cambio){
     this.hospitales={
       Foto:this.imagename,

@@ -20,6 +20,14 @@ putUsuarios(id,usuarios: UsuarioModel) {
   delete usuarioTemp.id;
   return this.http.put(this.URL_API + `/${id}`, usuarioTemp);
 }
+patchUsuarios(id,usuarios: UsuarioModel) {
+  const usuarioTemp = {
+    ...usuarios
+  };
+
+  delete usuarioTemp.id;
+  return this.http.patch(this.URL_API + `/${id}`, usuarioTemp);
+}
 deleteUsuario(id: string) {
   return this.http.delete(this.URL_API + `/${id}`);
 }

@@ -18,7 +18,7 @@ export class FormModalAPComponentMed {
   @Input() public modif=false; 
   @Input() public medicom: MedicosModel;
   hospitalesArray: HospitalesModel[] = [];
-  file;ext;img;nombreIcono;imagename;
+  file;ext;img;nombreIcono;imagename='/assets/image-placeholder.jpg';
   medicos: MedicosModel;
   HospValid=false;
   myForm: FormGroup;
@@ -42,6 +42,7 @@ export class FormModalAPComponentMed {
     this.idm.setValue(this.medicom.id, {
       onlySelf: true
     })
+    this.Imgsrc=this.medicom.Foto
   this.Fotom.setValue(this.medicom.Foto, {
     onlySelf: true
   })
@@ -220,6 +221,7 @@ cambiaPreview(event:any){
     this.Imgpreview=event.target.files[0]
   }else{
     this.Imgsrc='/assets/image-placeholder.jpg'
+    this.img='/assets/image-placeholder.jpg'
     this.Imgpreview=null;
     this.Fotom.setValue(this.Imgsrc, {
       onlySelf: true
@@ -270,7 +272,11 @@ get idm() {
 
 if(!this.modif && this.HospValid){
   this.nombreIcono = `${formValue.Nombre.trim()}Img`+'.'+this.ext;
-  this.imagename =`http://localhost:3000/api/Containers/local-storage/download/${this.nombreIcono}`;
+  if(this.file!=null){
+    this.imagename =`http://localhost:3000/api/Containers/local-storage/download/${this.nombreIcono}`;
+    }else{
+      this.imagename='/assets/image-placeholder.jpg';
+    }
   this.serviceMed.uploadImages(this.img,this.nombreIcono).subscribe(resp =>{
     console.log("imagen subida");
   });
@@ -290,7 +296,11 @@ this.serviceMed.postMedicoos(this.medicos).subscribe(resp =>{
 });
 }else if(this.HospValid){
   this.nombreIcono = `${formValue.Nombre.trim()}Img`+'.'+this.ext;
+  if(this.file!=null){
   this.imagename =`http://localhost:3000/api/Containers/local-storage/download/${this.nombreIcono}`;
+  }else{
+    this.imagename='/assets/image-placeholder.jpg';
+  }
   this.serviceMed.uploadImages(this.img,this.nombreIcono).subscribe(resp =>{
     console.log("imagen subida");
   });
@@ -318,6 +328,8 @@ get formControls(){
 handleFileSelect(evt){
   var files = evt.target.files;
   this.file = files[0];
+  console.log(this.file)
+  if(this.file!=null){
   this.ext=this.file.name;
   this.ext = this.ext.slice((this.ext.lastIndexOf(".") - 1 >>> 0) + 2);
 if (files && this.file) {
@@ -327,6 +339,7 @@ if (files && this.file) {
 
     reader.readAsBinaryString(this.file);
 }
+  }
 }
 _handleReaderLoaded(readerEvt) {
   var binaryString = readerEvt.target.result;
