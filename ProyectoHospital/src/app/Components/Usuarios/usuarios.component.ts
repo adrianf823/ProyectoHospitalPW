@@ -13,18 +13,15 @@ import { UsuarioModel } from 'src/app/models/usuario';
 })
 export class UsuariosComponent implements OnInit {
  Usuario:UsuarioModel=JSON.parse(localStorage.getItem("currentUser"));
-usuariosArray: HospitalesModel[]=[]
-usuario:HospitalesModel;
+usuariosArray: UsuarioModel[]=[]
+usuario:UsuarioModel;
   constructor(public usuariosServ:UsuariosService, public modalService:NgbModal, public authservice: AuthService,public router:Router) { }
 
   ngOnInit() {
       this.usuariosServ.getUsuarios().subscribe(resp => {
         this.usuariosArray=resp;
       })
-      
-      
-
-  }
+    }
   logOut(){
     this.authservice.logoutUser();
     this.router.navigate(['/registro']);

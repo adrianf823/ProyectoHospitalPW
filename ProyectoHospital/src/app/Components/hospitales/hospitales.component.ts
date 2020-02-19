@@ -20,7 +20,12 @@ hospital:HospitalesModel;
   constructor(public hospitalesServ:HospitalesService, public modalService:NgbModal, public authservice: AuthService,public router:Router) { }
 
   ngOnInit() {
-    
+    if(localStorage.getItem("update")=="1"){
+      localStorage.setItem("update","0")
+      setTimeout(() => {
+        location.reload()
+      }, 1000);
+    }
     console.log(this.Usuario.email)
       this.hospitalesServ.getHospitalees().subscribe(resp => {
         this.hospitalesArray=resp;
@@ -109,12 +114,6 @@ hospital:HospitalesModel;
 
   formUsuario(){
     const modalRef = this.modalService.open(FormModalAPComponentUser);
-  }
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    localStorage.setItem("updateusertabla","1")
-    localStorage.setItem("reload","0")
   }
 
 }

@@ -20,6 +20,12 @@ medico:MedicosModel;
   constructor(public medicoserv:MedicosService,public modalService:NgbModal,public authservice: AuthService,public router:Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem("update2")=="1"){
+      localStorage.setItem("update2","0")
+      setTimeout(() => {
+        location.reload()
+      }, 1000);
+          }
       this.medicoserv.getMedicoos().subscribe(resp => {
         this.medicosArray=resp;
         if(localStorage.getItem("updateusertabla")=="1"){
@@ -111,11 +117,5 @@ medico:MedicosModel;
   }
   formUsuario(){
     const modalRef = this.modalService.open(FormModalAPComponentUser);
-  }
-  ngOnDestroy(): void {
-    //Called once, before the instance is destroyed.
-    //Add 'implements OnDestroy' to the class.
-    localStorage.setItem("updateusertabla","1")
-    localStorage.setItem("reload","0")
   }
 }

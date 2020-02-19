@@ -34,4 +34,9 @@ deleteUsuario(id: string) {
 getUsuarios() {
   return this.http.get<[]>(this.URL_API);
 }
+changePassword(oldPassword,newPassword){
+  let accessToken = localStorage.getItem("accessToken");
+  const url_api = `http://localhost:3000/api/Usuarios/change-password?access_token=${accessToken}`;
+  return this.http.post<UsuarioModel>(url_api, {oldPassword,newPassword})
+}
 }

@@ -4,7 +4,7 @@
          (click)="activeModal.dismiss('Cross click')">X
         </button>
       </div>
-      <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
+      <form [formGroup]="myForm">
         <div class="modal-boy">
           <div class="container">
               <img [src]="Imgsrc" style="max-width: 260px; margin-left: 25%;" (click)="file.click()"/>
@@ -27,16 +27,25 @@
                 formControlName="email"  />
             </div>
             <div class="form-group">
-              <label for="m">Contraseña</label>
+              <button (click)="modifPass=!modifPass">Cambiar Contraseña</button>
+            </div>
+            <div *ngIf="modifPass" class="form-group">
+              <label for="m">Contraseña antigua</label>
               <input type="text" 
                 class="form-control"
-                formControlName="password"  />
+                formControlName="passwordOld"  />
+            </div>
+            <div *ngIf="modifPass" class="form-group">
+              <label for="m">Contraseña nueva</label>
+              <input type="text" 
+                class="form-control"
+                formControlName="passwordNew"  />
             </div>
         </div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-success"
-            >
+            (click)="submitForm(myForm.value)">
             Añadir
           </button>
         </div>

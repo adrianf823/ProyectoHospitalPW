@@ -20,6 +20,7 @@ export class FormModalAPComponentMed {
   hospitalesArray: HospitalesModel[] = [];
   file;ext;img;nombreIcono;imagename='/assets/image-placeholder.jpg';
   medicos: MedicosModel;
+  cambio:boolean=false;
   HospValid=false;
   myForm: FormGroup;
   filePath;
@@ -301,9 +302,11 @@ this.serviceMed.postMedicoos(this.medicos).subscribe(resp =>{
   }else{
     this.imagename='/assets/image-placeholder.jpg';
   }
+  if(this.cambio){
   this.serviceMed.uploadImages(this.img,this.nombreIcono).subscribe(resp =>{
     console.log("imagen subida");
   });
+
   this.medicos={
     Nombre:formValue.Nombre,
     Foto:this.imagename,
@@ -312,6 +315,23 @@ this.serviceMed.postMedicoos(this.medicos).subscribe(resp =>{
     email:this.Usuario.email,
     userId:this.Usuario.id
   }
+}else{
+  var ext1=this.medicom.Foto;
+  var exten = ext1.split(".")
+  var ext = exten[2];
+  console.log(ext)
+  this.medicos={
+    Foto:this.medicom.Foto,
+    Nombre:formValue.Nombre,
+    Usuario:this.Usuario.Nombre,
+    Hospital:this.medicom.Hospital,
+    email:this.Usuario.email,
+    userId:this.Usuario.id
+  }
+  this.serviceMed.uploadImages(this.img,`${formValue.Nombre.trim()}Img`+'.'+ext).subscribe(resp =>{
+    console.log("imagen subida");
+  });
+}
   this.serviceMed.putMedicoos(formValue.id,this.medicos).subscribe(resp =>{
     this.modif=false;
   this.isSubmitted=false
@@ -342,6 +362,7 @@ if (files && this.file) {
   }
 }
 _handleReaderLoaded(readerEvt) {
+  this.cambio=true;
   var binaryString = readerEvt.target.result;
          this.img= btoa(binaryString);
          console.log(btoa(binaryString));

@@ -8,6 +8,7 @@ import { HospitalesService } from 'src/app/services/hospitales';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import {AuthService} from '../../services/auth.service'
+import {UsuariosService} from '../../services/usuarios.service'
 
 @Component({
   selector: 'app-form-modal',
@@ -17,6 +18,7 @@ export class FormModalAPComponentUser {
   Usuario:UsuarioModel=JSON.parse(localStorage.getItem("currentUser"));
   @Input() public modif=false; 
   nombreIcono;
+  modifPass:boolean=false
   imagename;
   ext;
   user: UsuarioModel;
@@ -33,7 +35,8 @@ export class FormModalAPComponentUser {
    private formBuilder: FormBuilder,
    private service: HospitalesService,
    private http: HttpClient,
-   public authService:AuthService
+   public authService:AuthService,
+   public userService:UsuariosService
   ) {
     this.createForm();
   }
@@ -65,7 +68,8 @@ export class FormModalAPComponentUser {
       Foto:'',
       Nombre:'',
       email: '',
-      password:''
+      passwordOld:'',
+      passwordNew:''
     });
   }/*
   private submitForm(formValue) {
@@ -229,13 +233,6 @@ get Nombrem() {
  submitForm(formValue)
 {
   if(this.myForm.valid){
-    Swal.fire({
-      title: 'Espere',
-      text: 'Modificando usuario...',
-      icon: 'info',
-      allowOutsideClick: false
-    });
-    Swal.showLoading();
 console.log(formValue)
 if(this.cambio){
   this.nombreIcono = `${formValue.Nombre.trim()}Img`+'.'+this.ext;
@@ -270,29 +267,52 @@ if(this.cambio){
 }
 console.log(this.user)
 localStorage.setItem("auxUserN",this.Usuario.Nombre)
-localStorage.setItem("auxUserEm",this.Usuario.email)
-  this.putUsuarios(this.Usuario.id,this.user).subscribe(resp=>{
+localStorage.setItem("auxUserEm",this.Usuario.email) 
+if(this.modifPass){
+this.userService.changePassword(formValue.passwordOld,formValue.passwordNew).subscribe(resp=>{
+  Swal.fire({
+    title: 'Espere',
+    text: 'Modificando usuario...',
+    icon: 'info',
+    allowOutsideClick: false
+  });
+  Swal.showLoading();
+  this.userService.patchUsuarios(this.Usuario.id,this.user).subscribe(resp=>{
     Swal.close()
     this.authService.setUser(this.user)
     this.activeModal.close(this.myForm.value);
     localStorage.setItem("reload","0");
     localStorage.setItem("updateusertabla","1");
-    location.reload()
+    localStorage.setItem("update","1")
+    localStorage.setItem("update2","1")
+      location.reload()
   })
-    
+},error=>{
+  alert("Contraseña antigua incorrecta")
+})  
+}else{
+  Swal.fire({
+    title: 'Espere',
+    text: 'Modificando usuario...',
+    icon: 'info',
+    allowOutsideClick: false
+  });
+  Swal.showLoading();
+  this.userService.patchUsuarios(this.Usuario.id,this.user).subscribe(resp=>{
+    Swal.close()
+    this.authService.setUser(this.user)
+    this.activeModal.close(this.myForm.value);
+    localStorage.setItem("reload","0");
+    localStorage.setItem("updateusertabla","1");
+    localStorage.setItem("update","1")
+    localStorage.setItem("update2","1")
+      location.reload()
+  })
+}
 }
 }
 get formControls(){
   return this.myForm['controls'];
 }
-readonly URL_API = 'http://localhost:3000/api/Usuarios';
 
-putUsuarios(id,usuarios: UsuarioModel) {
-  const usuarioTemp = {
-    ...usuarios
-  };
-
-  delete usuarioTemp.id;
-  return this.http.put(this.URL_API + `/${id}`, usuarioTemp);
-}
 }
