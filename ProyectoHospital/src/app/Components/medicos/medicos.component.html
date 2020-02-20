@@ -38,7 +38,7 @@
   </nav>
 <br>
 <h1 style="text-align: center;">Médicos</h1>
-<button (click)="CrearMedico()" style="margin-left: 80%;" *ngIf="Usuario.rol=='admin'">Crear Médico</button>
+<button (click)="CrearMedico()" style="margin-left: 80%;" *ngIf="Usuario.rol=='admin'" mat-flat-button color="primary">Crear Médico</button>
 <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
@@ -57,8 +57,8 @@
     <td>{{m.Nombre}}</td>
     <td>{{m.Hospital}}</td>
     <td>{{m.Usuario}}({{m.email}})</td>
-    <td *ngIf="Usuario.rol=='admin'"><button (click)="EliminarMedico(m.id)" *ngIf="m.Usuario==Usuario.Nombre">Eliminar</button>
-    <button (click)="EditarMedico(m,m.id)" *ngIf="m.Usuario==Usuario.Nombre">Modificar</button></td>
+    <td *ngIf="Usuario.rol=='admin'"><button (click)="EliminarMedico(m.id)" *ngIf="m.Usuario==Usuario.Nombre" class="btn btn-danger">Eliminar</button>
+      &nbsp;<button (click)="EditarMedico(m,m.id)" *ngIf="m.Usuario==Usuario.Nombre" class="btn btn-warning">Modificar</button></td>
         </tr>
         
         </table>

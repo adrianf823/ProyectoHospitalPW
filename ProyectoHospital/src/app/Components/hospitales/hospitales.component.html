@@ -36,7 +36,7 @@
   </nav>
 <br>
 <h1 style="text-align: center;">Hospitales</h1>
-<button (click)="CrearHospital()" style="margin-left: 80%;" *ngIf="Usuario.rol=='admin'">Crear Hospital</button>
+<button (click)="CrearHospital()" style="margin-left: 80%;" *ngIf="Usuario.rol=='admin'" mat-flat-button color="primary">Crear Hospital</button>
 <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
@@ -53,8 +53,8 @@
     <td><img [src]="m.Foto" alt="" style="max-width: 60px;" class="zoomIt"></td>
     <td>{{m.Nombre}}</td>
     <td>{{m.Usuario}}({{m.email}})</td>
-    <td  *ngIf="Usuario.rol=='admin'"><button (click)="EliminarHospital(m.id)" *ngIf="m.userId==Usuario.id">Eliminar</button>
-    <button (click)="EditarHospital(m,m.id)" *ngIf="m.userId==Usuario.id">Modificar</button>
+    <td  *ngIf="Usuario.rol=='admin'"><button (click)="EliminarHospital(m.id)" *ngIf="m.userId==Usuario.id" class="btn btn-danger">Eliminar</button>
+      &nbsp;<button (click)="EditarHospital(m,m.id)" *ngIf="m.userId==Usuario.id" class="btn btn-warning">Modificar</button>
     <button (click)="UpdateUsuarioTabla(m)" *ngIf="m.userId==Usuario.id"  #myDiv style="display: none;">Actualizar</button></td>
         </tr>
         

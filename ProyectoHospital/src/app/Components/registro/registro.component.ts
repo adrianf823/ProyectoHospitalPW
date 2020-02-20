@@ -36,7 +36,7 @@ export class RegistroComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       Foto:'https://img.icons8.com/cotton/50/000000/name--v2.png',
       Nombre: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required,Validators.email]],
       password: ['', [Validators.required]],
       rol:''
     });
@@ -58,6 +58,8 @@ export class RegistroComponent implements OnInit {
           console.log(user)
           this.authService.setToken(token);
           this.router.navigate(['/medicos']);
+        },error=>{
+          alert("No puedes dejar nada en blanco y el correo debe estar bien ")
         });
       
 

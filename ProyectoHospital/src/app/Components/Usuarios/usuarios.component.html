@@ -53,8 +53,8 @@
     <td><img [src]="m.Foto" alt="" style="max-width: 60px;" class="zoomIt"></td>
     <td>{{m.Nombre}}</td>
     <td>{{m.email}}</td>
-    <td>{{m.rol}}<button *ngIf="m.rol=='admin' && Usuario.rol=='admin'" (click)="rolUpdate(m)">Quitar admin</button><button *ngIf="m.rol=='' && Usuario.rol=='admin'" (click)="rolUpdate(m)">Hacer admin</button></td>
-    <td  *ngIf="Usuario.rol=='admin'"><button (click)="EliminarUsuario(m.id)">Eliminar</button></td>
+    <td>{{m.rol}}<button *ngIf="m.rol=='admin' && Usuario.rol=='admin'" (click)="rolUpdate(m)" class="btn btn-warning">Quitar admin</button><button *ngIf="m.rol=='' && Usuario.rol=='admin'" (click)="rolUpdate(m)" class="btn btn-success">Hacer admin</button></td>
+    <td  *ngIf="Usuario.rol=='admin'"><button (click)="EliminarUsuario(m.id)" class="btn btn-danger">Eliminar</button></td>
         </tr>
         
         </table>

@@ -10,6 +10,7 @@ import { UsuarioModel } from 'src/app/models/usuario';
 import { HospitalesModel } from 'src/app/models/hospitales';
 import { HospitalesService } from 'src/app/services/hospitales';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 @Component({
   selector: 'app-medicos',
   templateUrl: './medicos.component.html',
@@ -21,6 +22,7 @@ export class MedicosComponent implements OnInit {
 medicosArray: MedicosModel[]=[]
 hospitalesArray: HospitalesModel[]=[]
 medico:MedicosModel;
+arr:MedicosModel[]=[];
   constructor(public medicoserv:MedicosService,public modalService:NgbModal,public authservice: AuthService,public router:Router,public hospServ:HospitalesService) { }
 
   ngOnInit() {
@@ -156,8 +158,15 @@ if(localStorage.getItem("update2")=="1"){
     const modalRef = this.modalService.open(FormModalAPComponentUser);
   }
   imprimir(){
+    this.medicosArray.forEach(element => {
+      var pepe:any=Object.values(element);
+      this.arr.push(pepe)
+    });
     const doc = new jsPDF()
-doc.autoTable({ html: '#my-table' })
+    let columns = ["Id","Foto", "Nombre", "Hospital","d","Usuario"];
+    console.log(this.arr)
+doc.autoTable(columns,this.arr)
 doc.save('table.pdf')
   }
+  
 }

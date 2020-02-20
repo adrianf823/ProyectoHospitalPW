@@ -71,6 +71,8 @@ export class AuthService {
     console.log("jsndsj")
     localStorage.removeItem("currentUser");
     localStorage.removeItem("idUser");
+    localStorage.removeItem("auxUserN");
+    localStorage.removeItem("auxUserEm");
     return this.htttp.post<UsuarioModel>(url_api, { headers: this.headers });
   }
 }

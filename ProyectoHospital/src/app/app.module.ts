@@ -19,6 +19,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {MatButtonModule} from '@angular/material/button';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     MatTableModule,
     MatCheckboxModule,
     NgbModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatButtonToggleModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent],
