@@ -17,7 +17,7 @@ export class FormModalAPComponent {
   @Input() public hospitalm: HospitalesModel;
   cambio:boolean=false;
   nombreIcono;
-  imagename;
+  imagename='/assets/image-placeholder.jpg';
   ext;
   hospitales: HospitalesModel;
   myForm: FormGroup;
@@ -267,7 +267,8 @@ this.service.postHospitalees(this.hospitales).subscribe(resp =>{
   Swal.close()
   this.activeModal.close(this.myForm.value);
 });
-  }else{
+  }else {
+    localStorage.setItem("update2","1")
     console.log(this.hospitalm)
     this.nombreIcono = `${formValue.Nombre.trim()}Img`+'.'+this.ext;
     if(this.file!=null){

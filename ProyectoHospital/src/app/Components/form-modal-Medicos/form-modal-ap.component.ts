@@ -324,7 +324,7 @@ this.serviceMed.postMedicoos(this.medicos).subscribe(resp =>{
     Foto:this.medicom.Foto,
     Nombre:formValue.Nombre,
     Usuario:this.Usuario.Nombre,
-    Hospital:this.medicom.Hospital,
+    Hospital:formValue.Hospital,
     email:this.Usuario.email,
     userId:this.Usuario.id
   }

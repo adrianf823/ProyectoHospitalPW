@@ -51,7 +51,7 @@ hospital:HospitalesModel;
               }
               console.log(this.hospital)
               this.hospitalesServ.putHospitalees(element.id,this.hospital).subscribe(resp=>{
-                localStorage.setItem("updateusertabla","0");
+                this.hospitalesServ.getHospitalees().subscribe()
               })
             }
           });
@@ -98,6 +98,7 @@ hospital:HospitalesModel;
     this.hospitalesServ.deleteHospitalees(id).subscribe(res =>{
       this.hospitalesServ.getHospitalees().subscribe(resp => {
         this.hospitalesArray=resp;
+        localStorage.setItem("update2","1")
       })
     })
   }

@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     MatTableModule,
     MatCheckboxModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent],

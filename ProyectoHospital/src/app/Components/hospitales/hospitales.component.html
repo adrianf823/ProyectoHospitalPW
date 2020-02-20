@@ -49,7 +49,7 @@
         <th>Usuario</th>
         <th *ngIf="Usuario.rol=='admin'">Operaciones</th>
                 </thead>
-        <tr *ngFor="let m of hospitalesArray">
+        <tr *ngFor="let m of hospitalesArray | paginate: { itemsPerPage: 10, currentPage: p }">
     <td><img [src]="m.Foto" alt="" style="max-width: 60px;" class="zoomIt"></td>
     <td>{{m.Nombre}}</td>
     <td>{{m.Usuario}}({{m.email}})</td>
@@ -59,9 +59,9 @@
         </tr>
         
         </table>
-            
+        
     </div>
-    
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
     <div class="col-1"></div>
     </div>

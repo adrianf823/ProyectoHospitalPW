@@ -7,6 +7,9 @@ import { FormModalAPComponentUser } from 'src/app/Components/form-modal-Usuario/
 import {AuthService} from '../../services/auth.service'
 import { Router } from '@angular/router';
 import { UsuarioModel } from 'src/app/models/usuario';
+import { HospitalesModel } from 'src/app/models/hospitales';
+import { HospitalesService } from 'src/app/services/hospitales';
+import jsPDF from 'jspdf';
 @Component({
   selector: 'app-medicos',
   templateUrl: './medicos.component.html',
@@ -16,10 +19,12 @@ export class MedicosComponent implements OnInit {
 
   Usuario:UsuarioModel=JSON.parse(localStorage.getItem("currentUser"));
 medicosArray: MedicosModel[]=[]
+hospitalesArray: HospitalesModel[]=[]
 medico:MedicosModel;
-  constructor(public medicoserv:MedicosService,public modalService:NgbModal,public authservice: AuthService,public router:Router) { }
+  constructor(public medicoserv:MedicosService,public modalService:NgbModal,public authservice: AuthService,public router:Router,public hospServ:HospitalesService) { }
 
   ngOnInit() {
+    var tieneHosp:boolean;
     if(localStorage.getItem("update2")=="1"){
       localStorage.setItem("update2","0")
       setTimeout(() => {
@@ -33,7 +38,41 @@ medico:MedicosModel;
           localStorage.setItem("reload","1");
          location.reload()
         }
-        
+        }
+        this.hospServ.getHospitalees().subscribe(resp=>{
+          this.hospitalesArray=resp;
+          console.log(this.hospitalesArray)
+      this.medicosArray.forEach(element => {
+this.hospitalesArray.forEach(hosp=>{
+  console.log(element.Hospital+" = "+hosp.Nombre)
+  if(element.Hospital==hosp.Nombre){
+    tieneHosp=true;
+  }
+})
+if(!tieneHosp){
+  this.medico={
+    Foto:element.Foto,
+    Nombre:element.Nombre,
+    Hospital:"Ninguno",
+      Usuario:this.Usuario.Nombre,
+      email:this.Usuario.email,
+      userId:this.Usuario.id
+    
+  }
+  this.medicoserv.putMedicoos(element.id,this.medico).subscribe(resp=>{
+    localStorage.setItem("updateusertabla","0");
+  })
+}else{
+  tieneHosp=false;
+}     
+})
+if(localStorage.getItem("update2")=="1"){
+  localStorage.setItem("update2","0")
+  setTimeout(() => {
+    location.reload()
+  }, 1000);
+      }
+        })
           this.medicosArray.forEach(element => {
             console.log(this.medicosArray)
             console.log(element)
@@ -50,15 +89,13 @@ medico:MedicosModel;
               }
               console.log(this.medico)
               this.medicoserv.putMedicoos(element.id,this.medico).subscribe(resp=>{
-                localStorage.setItem("updateusertabla","0");
+                this.medicoserv.getMedicoos().subscribe(resp=>{
+                  console.log("recoje")
+                })
               })
             }
           });
-          
-        }
-      })
-
-    
+    })
   }
   logOut(){
     this.authservice.logoutUser();
@@ -117,5 +154,10 @@ medico:MedicosModel;
   }
   formUsuario(){
     const modalRef = this.modalService.open(FormModalAPComponentUser);
+  }
+  imprimir(){
+    const doc = new jsPDF()
+doc.autoTable({ html: '#my-table' })
+doc.save('table.pdf')
   }
 }

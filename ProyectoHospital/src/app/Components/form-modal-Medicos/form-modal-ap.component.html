@@ -27,6 +27,7 @@
               <label *ngIf="modif">----------Anteriormente: {{medicom.Hospital}}------------</label>
               <select type="text" class="form-control" formControlName="Hospital" (change)="cambiarHospital($event)">
                 <option>Elije un hospital</option>
+                <option>Ninguno</option>
                 <option  *ngFor="let item of hospitalesArray">{{item.Nombre}}</option>
               </select>
               <div class="text-danger" *ngIf="isSubmitted && !HospValid">Este campo es necesario</div>
